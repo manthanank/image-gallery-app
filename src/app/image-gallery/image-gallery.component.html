@@ -1,0 +1,32 @@
+<div class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">Image Gallery</h1>
+    <div class="flex justify-center mb-6">
+        <button (click)="filterImages('all')" class="px-4 py-2 mx-2 bg-blue-500 text-white rounded">All</button>
+        <button (click)="filterImages('horizontal')"
+            class="px-4 py-2 mx-2 bg-blue-500 text-white rounded">Horizontal</button>
+        <button (click)="filterImages('vertical')"
+            class="px-4 py-2 mx-2 bg-blue-500 text-white rounded">Vertical</button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-2">
+        @if (isLoading) {
+        <div  class="text-center col-span-full">
+            <p>Loading...</p>
+        </div>
+        } @else if (!isLoading && error) {
+        <div  class="text-center col-span-full">
+            <p>Error: {{ error }}</p>
+        </div>
+        }
+        @else {
+            @for (image of filteredImages; track $index) {
+            <div class="overflow-hidden rounded-lg shadow-lg">
+                <img [src]="image.url" [alt]="image.title" class="w-full h-auto">
+                <div class="p-4">
+                    <h2 class="font-bold text-lg">{{ image.title }}</h2>
+                    <p class="text-gray-600">{{ image.description }}</p>
+                </div>
+            </div>
+            }
+        }
+    </div>
+</div>
